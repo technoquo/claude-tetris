@@ -1,0 +1,55 @@
+# --- Tipo ---
+- name: bug
+  color: d73a4a
+  description: Algo no funciona como debería
+- name: enhancement
+  color: a2eeef
+  description: Nueva funcionalidad o mejora
+- name: question
+  color: d876e3
+  description: Duda o consulta sobre el proyecto
+- name: documentation
+  color: 0075ca
+  description: Mejoras o correcciones en la documentación
+- name: refactor
+  color: fbca04
+  description: Cambio de código sin alterar comportamiento
+
+# --- Área del código ---
+- name: "area: gameplay"
+  color: 1d76db
+  description: Mecánicas de juego (colisiones, rotación, spawn, game over)
+- name: "area: ui"
+  color: 1d76db
+  description: HTML/CSS, layout, overlays, marcadores
+- name: "area: rendering"
+  color: 1d76db
+  description: Canvas, dibujado de bloques, ghost piece, grid
+- name: "area: performance"
+  color: 1d76db
+  description: FPS, requestAnimationFrame, coste del loop
+- name: "area: controls"
+  color: 1d76db
+  description: Input del teclado, keybindings, soft/hard drop
+- name: "area: scoring"
+  color: 1d76db
+  description: Puntuación, niveles, velocidad de caída
+
+# --- Prioridad ---
+- name: "priority: high"
+  color: b60205
+  description: Bloqueante o afecta la jugabilidad principal
+- name: "priority: medium"
+  color: fbca04
+  description: Importante pero no bloqueante
+- name: "priority: low"
+  color: 0e8a16
+  description: Mejora menor o cosmética
+
+# --- Estado ---
+- name: needs-triage
+  color: ededed
+  description: Pendiente de clasificación inicial
+- name: needs-info
+  color: ededed
+  description: Falta información del reportante para avanzar
