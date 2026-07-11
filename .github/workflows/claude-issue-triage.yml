@@ -53,7 +53,10 @@ jobs:
             4. Aplica los labels:
                `gh issue edit ${{ github.event.issue.number }} --add-label "label1,label2,..."`
 
-            5. Publica UN comentario con este formato Markdown EXACTO:
+            5. Publica UN comentario usando Markdown compatible con GitHub (GitHub Flavored Markdown).
+               Usa encabezados `##`, listas con `-`, bloques de código con backticks `` ` ``, y negritas con `**`.
+               NO uses HTML inline ni sintaxis que GitHub no renderice en comentarios de issues.
+               El formato exacto del comentario debe ser:
 
                ## Triage automático
 
