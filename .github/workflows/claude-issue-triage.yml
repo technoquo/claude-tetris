@@ -1,0 +1,91 @@
+name: Claude Issue Triage
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  triage:
+    # Guarda anti-bucle: ignora ediciones de bots (evita re-trigger por github-actions[bot]).
+    # Guarda anti-colisión: ignora issues con @claude (los maneja claude.yml).
+    if: |
+      github.event.sender.type != 'Bot' &&
+      !contains(github.event.issue.title, '@claude') &&
+      !contains(github.event.issue.body, '@claude')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude Issue Triage
+        id: claude-triage
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            Eres el agente de triage automático del repositorio de Tetris (juego HTML/CSS/JS vanilla).
+            Responde SIEMPRE en español.
+
+            Analiza el issue #${{ github.event.issue.number }} siguiendo estos pasos EN ORDEN:
+
+            1. Lee el issue:
+               `gh issue view ${{ github.event.issue.number }} --json number,title,body,labels,author`
+
+            2. Obtén el catálogo de labels disponibles:
+               `gh label list --limit 100`
+               SOLO usa labels que aparezcan en esa lista. NUNCA inventes labels nuevos.
+
+            3. Decide los labels apropiados siguiendo estas reglas:
+               - Exactamente 1 de tipo: bug / enhancement / question / documentation / refactor.
+               - 1 o más de área (area: gameplay / ui / rendering / performance / controls / scoring)
+                 según los archivos afectados (game.js, index.html, style.css).
+               - Exactamente 1 de prioridad (priority: high / medium / low).
+                 high = rompe jugabilidad, medium = degrada experiencia, low = cosmético.
+               - Añade `needs-info` si falta información para reproducir/entender.
+               - Añade `needs-triage` si no estás seguro de la clasificación.
+
+            4. Aplica los labels:
+               `gh issue edit ${{ github.event.issue.number }} --add-label "label1,label2,..."`
+
+            5. Publica UN comentario con este formato Markdown EXACTO:
+
+               ## Triage automático
+
+               **Resumen del problema**
+               (2-3 líneas resumiendo qué reporta el issue.)
+
+               **Área afectada del código**
+               (Archivos concretos: `game.js`, `index.html`, `style.css`. Si aplica, cita funciones
+                como `collide()`, `tryRotate()`, `lockPiece()`, `draw()`, `spawn()`.)
+
+               **Causa probable**
+               (Hipótesis técnica corta. Referencia constantes como `BLOCK`, `dropInterval`,
+                `LINE_SCORES` cuando corresponda.)
+
+               **Enfoque sugerido para la solución**
+               (3-5 bullets con pasos concretos, ordenados por dependencia.)
+
+               **Labels aplicados**
+               (Lista los labels que asignaste en el paso 4.)
+
+               ---
+               _Comentario generado automáticamente por `claude-issue-triage.yml`._
+
+               Publica con:
+               `gh issue comment ${{ github.event.issue.number }} --body-file <archivo_temporal>`
+
+            6. NO edites el título ni el cuerpo del issue. NO lo cierres. NO hagas commits ni PRs.
+               NO uses menciones `@claude` en el comentario (evita re-disparar workflows).
+
+            Si el evento es `edited` y ya hay un comentario con "## Triage automático",
+            publica uno nuevo indicando "actualización tras edición del issue".
+          claude_args: |
+            --allowed-tools "Bash(gh issue view:*),Bash(gh issue edit:*),Bash(gh issue comment:*),Bash(gh label list:*),Bash(gh api:*)"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
