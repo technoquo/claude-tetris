@@ -83,10 +83,34 @@ body {
   text-shadow: 0 0 20px rgba(122, 162, 247, 0.4);
 }
 
-/* ---- Theme switch ---- */
-.theme-switch {
+/* ---- Controles superiores (skin + theme) ---- */
+.top-bar-controls {
   position: absolute;
   right: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#skin-select {
+  background: var(--kbd-bg);
+  color: var(--text);
+  border: 1px solid var(--kbd-border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#skin-select:focus {
+  border-color: var(--value-color);
+}
+
+/* ---- Theme switch ---- */
+.theme-switch {
   display: inline-flex;
   align-items: center;
   gap: 6px;
