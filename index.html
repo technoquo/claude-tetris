@@ -48,6 +48,10 @@
             <li><kbd>P</kbd> pausa</li>
           </ul>
         </div>
+
+        <div class="panel-section">
+          <div id="records-panel" class="records-panel"></div>
+        </div>
       </aside>
     </div>
 
@@ -55,7 +59,14 @@
       <div class="overlay-box">
         <p id="overlay-title">GAME OVER</p>
         <p id="overlay-score"></p>
-        <button id="restart-btn">Reiniciar</button>
+        <div id="overlay-records" class="overlay-records"></div>
+        <div id="name-entry" class="name-entry hidden">
+          <p class="name-entry-label">¡Entraste al top 5!</p>
+          <input type="text" id="player-name" maxlength="12" placeholder="Tu nombre" autocomplete="off" />
+          <button id="save-record-btn">Guardar récord</button>
+        </div>
+        <button id="reset-records-btn">Resetear récords</button>
+        <button id="restart-btn" class="hidden">Reiniciar</button>
       </div>
     </div>
   </div>

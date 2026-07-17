@@ -259,3 +259,151 @@ kbd {
 #restart-btn:hover {
   background: var(--btn-hover-bg);
 }
+
+.hidden {
+  display: none !important;
+}
+
+/* ---- Récords ---- */
+.records-panel {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  width: 100%;
+}
+
+.records-panel .records-title {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--label-color);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.records-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.records-list li {
+  display: flex;
+  gap: 4px;
+  align-items: baseline;
+  color: var(--controls-text);
+  font-size: 11px;
+}
+
+.records-list li .rec-rank {
+  color: var(--label-color);
+  min-width: 14px;
+}
+
+.records-list li .rec-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.records-list li .rec-score {
+  color: var(--value-color);
+  font-weight: 700;
+}
+
+.records-list li.rec-new {
+  color: var(--overlay-title-color);
+}
+
+.records-list li.rec-new .rec-score {
+  color: var(--overlay-title-color);
+}
+
+.records-stats {
+  margin-top: 6px;
+  color: var(--controls-text);
+  font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.records-stats span {
+  color: var(--value-color);
+}
+
+/* ---- Overlay records ---- */
+.overlay-records {
+  width: 220px;
+  text-align: left;
+}
+
+.overlay-records .records-title {
+  text-align: center;
+}
+
+/* ---- Name entry ---- */
+.name-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.name-entry-label {
+  font-size: 12px;
+  color: var(--overlay-score-color);
+  letter-spacing: 1px;
+}
+
+#player-name {
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-family: 'Courier New', Courier, monospace;
+  color: var(--text);
+  text-align: center;
+  width: 160px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+#player-name:focus {
+  border-color: var(--value-color);
+}
+
+#save-record-btn {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background 0.15s;
+}
+
+#save-record-btn:hover {
+  background: var(--btn-hover-bg);
+}
+
+#reset-records-btn {
+  background: transparent;
+  color: var(--label-color);
+  border: 1px solid var(--label-color);
+  border-radius: 6px;
+  padding: 5px 14px;
+  font-size: 11px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+#reset-records-btn:hover {
+  color: var(--overlay-title-color);
+  border-color: var(--overlay-title-color);
+}
